@@ -17,6 +17,7 @@ const i18n = {
     rsvpGuests:  'Počet hostů (včetně vás)',
     rsvpNote:    'Poznámka (dieta, alergie…)',
     rsvpSubmit:  'Odeslat RSVP',
+    rsvpSent:    'Odesláno!',
     rsvpSuccess: 'Děkujeme! Těšíme se na vás. 🎉',
   },
   en: {
@@ -35,6 +36,7 @@ const i18n = {
     rsvpGuests:  'Number of guests (including yourself)',
     rsvpNote:    'Note (dietary needs, allergies…)',
     rsvpSubmit:  'Send RSVP',
+    rsvpSent:    'Sent!',
     rsvpSuccess: 'Thank you! We look forward to celebrating with you. 🎉',
   },
 };
@@ -86,6 +88,8 @@ document.querySelectorAll('input[name="attendance"]').forEach(radio => {
 });
 
 // ── RSVP: form submission ──
+// Google Apps Script doesn't return CORS headers, so we use no-cors and
+// show success optimistically — the data is saved to the sheet regardless.
 
 const form = document.getElementById('rsvp-form');
 const successMsg = document.getElementById('rsvp-success');
@@ -93,33 +97,35 @@ const successMsg = document.getElementById('rsvp-success');
 form.addEventListener('submit', async e => {
   e.preventDefault();
 
-  const data = new FormData(form);
   const submitBtn = form.querySelector('.form-submit');
+  const submitLabel = form.querySelector('.submit-label');
+  const submitSpinner = form.querySelector('.submit-spinner');
 
   submitBtn.disabled = true;
+  submitLabel.hidden = true;
+  submitSpinner.hidden = false;
 
   try {
-    const res = await fetch(form.action, {
+    await fetch(form.action, {
       method: 'POST',
-      body: data,
-      headers: { Accept: 'application/json' },
+      mode: 'no-cors',
+      body: new URLSearchParams(new FormData(form)),
     });
-
-    if (res.ok) {
-      form.hidden = true;
-      successMsg.hidden = false;
-    } else {
-      submitBtn.disabled = false;
-      alert(currentLang === 'cs'
-        ? 'Odeslání selhalo, zkuste to prosím znovu.'
-        : 'Submission failed, please try again.');
-    }
   } catch {
+    // Network error — re-enable so the user can retry
     submitBtn.disabled = false;
+    submitLabel.hidden = false;
+    submitSpinner.hidden = true;
     alert(currentLang === 'cs'
       ? 'Odeslání selhalo, zkuste to prosím znovu.'
       : 'Submission failed, please try again.');
+    return;
   }
+
+  submitLabel.hidden = false;
+  submitSpinner.hidden = true;
+  submitLabel.textContent = i18n[currentLang].rsvpSent;
+  successMsg.hidden = false;
 });
 
 applyLang(currentLang);

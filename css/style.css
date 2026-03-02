@@ -4,6 +4,8 @@
   padding: 0;
 }
 
+[hidden] { display: none !important; }
+
 :root {
   --rainbow-1: #ff9aa2;
   --rainbow-2: #ffcc99;
@@ -323,9 +325,33 @@ body::before {
   transition: background 0.2s, color 0.2s;
 }
 
-.form-submit:hover {
+.form-submit:hover:not(:disabled) {
   background: var(--rainbow-6);
   color: #fff;
+}
+
+.form-submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.submit-spinner[hidden] {
+  display: none;
+}
+
+.submit-spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .rsvp-success {

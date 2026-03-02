@@ -48,12 +48,12 @@
   </section>
 
   <!-- RSVP -->
-  <!-- To activate the form: create a free account at formspree.io, create a form, and replace YOUR_FORM_ID below -->
+  <!-- To activate the form: paste the Apps Script web app URL (from google-apps-script.js setup) as the action below -->
   <section id="rsvp" class="section section--rsvp">
     <div class="section-inner reveal">
       <h2 class="section-title" data-i18n="rsvpTitle">RSVP</h2>
       <div class="rainbow-divider" role="presentation"></div>
-      <form class="rsvp-form" id="rsvp-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <form class="rsvp-form" id="rsvp-form" action="https://script.google.com/macros/s/AKfycbxQDZrTPvWZbvxDOy3v5kpGPoH6K7es61tyUAWwfLgAerQKalYkymzJfg6smdP82QNp6Q/exec" method="POST">
         <div class="form-group">
           <label class="form-label" for="name" data-i18n="rsvpName">Name</label>
           <input class="form-input" type="text" id="name" name="name" autocomplete="name" required />
@@ -80,7 +80,8 @@
           <textarea class="form-input form-textarea" id="note" name="note" rows="3"></textarea>
         </div>
         <button class="form-submit" type="submit">
-          <span data-i18n="rsvpSubmit">Send RSVP</span>
+          <span class="submit-label" data-i18n="rsvpSubmit">Send RSVP</span>
+          <span class="submit-spinner" hidden aria-hidden="true"></span>
         </button>
       </form>
       <p class="rsvp-success" id="rsvp-success" hidden data-i18n="rsvpSuccess">
