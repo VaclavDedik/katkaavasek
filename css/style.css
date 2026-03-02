@@ -1,0 +1,200 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --rainbow-1: #ff9aa2;
+  --rainbow-2: #ffcc99;
+  --rainbow-3: #ffeaa7;
+  --rainbow-4: #a8e6cf;
+  --rainbow-5: #a0c4ff;
+  --rainbow-6: #c3a8e1;
+  --overlay: rgba(0, 0, 0, 0.45);
+  --glass: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(255, 255, 255, 0.25);
+  --text: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.75);
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+body {
+  min-height: 100vh;
+  background-image: url('../img/main.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: var(--overlay);
+  z-index: 0;
+}
+
+.lang-switcher {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 10;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.lang-btn {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--text);
+  padding: 0.35rem 0.75rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.lang-btn:hover,
+.lang-btn.active {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.main {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  max-width: 42rem;
+  width: 100%;
+}
+
+.rainbow-divider {
+  width: min(16rem, 80%);
+  height: 3px;
+  border-radius: 99px;
+  background: linear-gradient(
+    90deg,
+    var(--rainbow-1),
+    var(--rainbow-2),
+    var(--rainbow-3),
+    var(--rainbow-4),
+    var(--rainbow-5),
+    var(--rainbow-6)
+  );
+}
+
+.title {
+  font-size: clamp(2.8rem, 9vw, 5.5rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  background: linear-gradient(
+    120deg,
+    var(--rainbow-1),
+    var(--rainbow-2),
+    var(--rainbow-3),
+    var(--rainbow-4),
+    var(--rainbow-5),
+    var(--rainbow-6)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+}
+
+.subtitle {
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  font-style: italic;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+
+.date-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 1.25rem;
+  padding: 1.25rem 2.5rem;
+  backdrop-filter: blur(12px);
+  font-size: clamp(1.15rem, 4vw, 1.6rem);
+  letter-spacing: 0.08em;
+}
+
+.countdown {
+  display: flex;
+  gap: clamp(0.75rem, 3vw, 2rem);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.countdown-unit {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 1rem;
+  backdrop-filter: blur(12px);
+  padding: 0.9rem 1.1rem;
+  min-width: 5.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.countdown-unit::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.countdown-unit:nth-child(1)::after { background: var(--rainbow-1); }
+.countdown-unit:nth-child(2)::after { background: var(--rainbow-3); }
+.countdown-unit:nth-child(3)::after { background: var(--rainbow-4); }
+.countdown-unit:nth-child(4)::after { background: var(--rainbow-5); }
+
+.countdown-value {
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 700;
+  line-height: 1;
+  font-family: 'Courier New', monospace;
+  letter-spacing: -0.02em;
+}
+
+.countdown-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+}
+
+@media (max-width: 480px) {
+  .countdown-unit {
+    min-width: 4.5rem;
+    padding: 0.7rem 0.8rem;
+  }
+
+  .date-card {
+    padding: 1rem 1.5rem;
+  }
+}

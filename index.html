@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Katka &amp; Vašek</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <nav class="lang-switcher" aria-label="Language">
+    <button class="lang-btn" data-lang="cs" aria-label="Česky">CS</button>
+    <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
+  </nav>
+
+  <main class="main">
+
+    <div class="rainbow-divider" role="presentation"></div>
+
+    <h1 class="title">Katka &amp; Vašek</h1>
+
+    <p class="subtitle" data-i18n="subtitle">We invite you to our wedding</p>
+
+    <div class="rainbow-divider" role="presentation"></div>
+
+    <div class="date-card" aria-label="Wedding date">
+      <span data-i18n="date">September 5, 2026</span>
+    </div>
+
+    <div id="countdown" class="countdown" aria-live="polite" aria-label="Countdown">
+      <div class="countdown-unit">
+        <span class="countdown-value" id="cd-days">–</span>
+        <span class="countdown-label" data-i18n="days">days</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-value" id="cd-hours">–</span>
+        <span class="countdown-label" data-i18n="hours">hours</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-value" id="cd-minutes">–</span>
+        <span class="countdown-label" data-i18n="minutes">minutes</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-value" id="cd-seconds">–</span>
+        <span class="countdown-label" data-i18n="seconds">seconds</span>
+      </div>
+    </div>
+
+    <p id="married-msg" hidden style="font-size:1.5rem;"></p>
+
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

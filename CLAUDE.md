@@ -1,0 +1,8 @@
+- All html pages should work both on desktop and on mobile, use responsive design
+- All pages should be internationalized and localized into Czech and English
+- Use pastel rainbow color scheme for all pages
+- If you are missing some information, ask for it instead of assuming
+- Use latest html, javascript and css
+- Javascript files should be in folder js
+- CSS files should be in folder css
+- The page is going to be hosted and published on Github Pages
