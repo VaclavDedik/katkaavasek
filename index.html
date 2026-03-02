@@ -17,21 +17,77 @@
     <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
   </nav>
 
+  <!-- Hero -->
   <main class="main">
-
     <div class="rainbow-divider" role="presentation"></div>
-
     <h1 class="title">Katka &amp; Vašek</h1>
-
     <p class="subtitle" data-i18n="subtitle">We invite you to our wedding</p>
-
     <div class="rainbow-divider" role="presentation"></div>
-
     <div class="date-card" aria-label="Wedding date">
       <span data-i18n="date">September 5, 2026</span>
     </div>
-
   </main>
+
+  <!-- When -->
+  <section id="when" class="section section--when">
+    <div class="section-inner reveal">
+      <h2 class="section-title" data-i18n="whenTitle">When</h2>
+      <div class="rainbow-divider" role="presentation"></div>
+      <p class="section-detail" data-i18n="whenDate">September 5, 2026</p>
+      <p class="section-detail section-detail--muted" data-i18n="whenTime">Time to be announced</p>
+    </div>
+  </section>
+
+  <!-- Where -->
+  <section id="where" class="section section--where">
+    <div class="section-inner reveal">
+      <h2 class="section-title" data-i18n="whereTitle">Where</h2>
+      <div class="rainbow-divider" role="presentation"></div>
+      <p class="section-detail" data-i18n="whereVenue">Venue to be announced</p>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <!-- To activate the form: create a free account at formspree.io, create a form, and replace YOUR_FORM_ID below -->
+  <section id="rsvp" class="section section--rsvp">
+    <div class="section-inner reveal">
+      <h2 class="section-title" data-i18n="rsvpTitle">RSVP</h2>
+      <div class="rainbow-divider" role="presentation"></div>
+      <form class="rsvp-form" id="rsvp-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="form-group">
+          <label class="form-label" for="name" data-i18n="rsvpName">Name</label>
+          <input class="form-input" type="text" id="name" name="name" autocomplete="name" required />
+        </div>
+        <div class="form-group">
+          <span class="form-label" data-i18n="rsvpAttend">Will you attend?</span>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="attendance" value="yes" required />
+              <span data-i18n="rsvpYes">Yes, I will be there</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attendance" value="no" />
+              <span data-i18n="rsvpNo">Unfortunately not</span>
+            </label>
+          </div>
+        </div>
+        <div class="form-group" id="guests-group" hidden>
+          <label class="form-label" for="guests" data-i18n="rsvpGuests">Number of guests (including yourself)</label>
+          <input class="form-input form-input--short" type="number" id="guests" name="guests" min="1" max="20" value="1" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="note" data-i18n="rsvpNote">Note (dietary needs, allergies…)</label>
+          <textarea class="form-input form-textarea" id="note" name="note" rows="3"></textarea>
+        </div>
+        <button class="form-submit" type="submit">
+          <span data-i18n="rsvpSubmit">Send RSVP</span>
+        </button>
+      </form>
+      <p class="rsvp-success" id="rsvp-success" hidden data-i18n="rsvpSuccess">
+        Thank you! We look forward to celebrating with you. 🎉
+      </p>
+    </div>
+  </section>
 
   <script src="js/main.js"></script>
 </body>
