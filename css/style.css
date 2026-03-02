@@ -148,59 +148,6 @@ body::before {
   letter-spacing: 0.1em;
 }
 
-.countdown {
-  display: flex;
-  gap: clamp(0.75rem, 3vw, 2rem);
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.countdown-unit {
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
-  border-radius: 1rem;
-  backdrop-filter: blur(12px);
-  padding: 0.9rem 1.1rem;
-  min-width: 5.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.3rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.countdown-unit::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-}
-
-.countdown-unit:nth-child(1)::after { background: var(--rainbow-1); }
-.countdown-unit:nth-child(2)::after { background: var(--rainbow-3); }
-.countdown-unit:nth-child(3)::after { background: var(--rainbow-4); }
-.countdown-unit:nth-child(4)::after { background: var(--rainbow-5); }
-
-.countdown-value {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2rem, 6vw, 3rem);
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: 0.02em;
-}
-
-.countdown-label {
-  font-family: 'Raleway', sans-serif;
-  font-size: 0.6rem;
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--text-muted);
-}
-
 @media (max-width: 480px) {
   .countdown-unit {
     min-width: 4.5rem;
