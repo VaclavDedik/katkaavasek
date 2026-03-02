@@ -32,13 +32,22 @@ html, body {
 
 body {
   min-height: 100vh;
-  background-image: url('../img/main.jpeg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
   color: var(--text);
 }
 
+/* Fixed background image — works on iOS unlike background-attachment: fixed */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('../img/main.jpeg');
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Dark overlay on top of the image */
 body::before {
   content: '';
   position: fixed;
@@ -143,6 +152,28 @@ body::before {
   color: var(--text-muted);
   letter-spacing: 0.2em;
   text-transform: uppercase;
+}
+
+.hero-rsvp-btn {
+  display: inline-block;
+  border: 1px solid var(--glass-border);
+  color: var(--text);
+  padding: 0.7rem 2.5rem;
+  border-radius: 2rem;
+  text-decoration: none;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  background: var(--glass);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.hero-rsvp-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .date-card {
