@@ -20,7 +20,7 @@
 
 html, body {
   height: 100%;
-  font-family: 'Georgia', 'Times New Roman', serif;
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
 }
 
 body {
@@ -60,8 +60,10 @@ body::before {
   padding: 0.35rem 0.75rem;
   border-radius: 2rem;
   cursor: pointer;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
   backdrop-filter: blur(8px);
   transition: background 0.2s, border-color 0.2s;
 }
@@ -101,10 +103,13 @@ body::before {
 }
 
 .title {
-  font-size: clamp(2.8rem, 9vw, 5.5rem);
-  font-weight: 400;
-  letter-spacing: 0.04em;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.5rem, 8vw, 6.5rem);
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.06em;
   line-height: 1.1;
+  white-space: nowrap;
   background: linear-gradient(
     120deg,
     var(--rainbow-1),
@@ -121,10 +126,13 @@ body::before {
 }
 
 .subtitle {
-  font-size: clamp(1rem, 3vw, 1.3rem);
-  font-style: italic;
+  font-family: 'Raleway', sans-serif;
+  font-size: clamp(0.85rem, 2.5vw, 1.05rem);
+  font-weight: 300;
+  font-style: normal;
   color: var(--text-muted);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 .date-card {
@@ -133,8 +141,11 @@ body::before {
   border-radius: 1.25rem;
   padding: 1.25rem 2.5rem;
   backdrop-filter: blur(12px);
-  font-size: clamp(1.15rem, 4vw, 1.6rem);
-  letter-spacing: 0.08em;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.1em;
 }
 
 .countdown {
@@ -174,17 +185,19 @@ body::before {
 .countdown-unit:nth-child(4)::after { background: var(--rainbow-5); }
 
 .countdown-value {
+  font-family: 'Cormorant Garamond', serif;
   font-size: clamp(2rem, 6vw, 3rem);
-  font-weight: 700;
+  font-weight: 300;
   line-height: 1;
-  font-family: 'Courier New', monospace;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.02em;
 }
 
 .countdown-label {
-  font-size: 0.7rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
   color: var(--text-muted);
 }
 
