@@ -203,6 +203,44 @@ body::before {
 .section--dress { background: #fef3d8; }
 .section--rsvp  { background: #ece6f7; }
 
+/* ── Side-by-side layout for sections with images ── */
+
+.section:has(.section-img) {
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+}
+
+.section-img {
+  width: 40%;
+  max-width: 22rem;
+  max-height: 22rem;
+  flex-shrink: 0;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 0.5rem;
+  margin: 3rem 0 3rem 3rem;
+}
+
+.section--img-right .section-img {
+  margin: 3rem 3rem 3rem 0;
+}
+
+.section--img-right .section-img { order: 2; }
+.section--img-right .section-inner { order: 1; }
+
+.section:has(.section-img) .section-inner {
+  max-width: 28rem;
+  margin: 0;
+  padding: 4rem 3rem;
+  align-items: flex-start;
+  justify-content: center;
+}
+
 .section-inner {
   max-width: 36rem;
   margin: 0 auto;
@@ -414,6 +452,26 @@ body::before {
 }
 
 /* ── Responsive ── */
+
+@media (max-width: 700px) {
+  .section:has(.section-img) {
+    flex-direction: column;
+  }
+
+  .section-img {
+    width: 100%;
+    max-height: 18rem;
+  }
+
+  .section--img-right .section-img { order: 0; }
+  .section--img-right .section-inner { order: 0; }
+
+  .section:has(.section-img) .section-inner {
+    padding: 3rem 1.25rem;
+    align-items: center;
+    text-align: center;
+  }
+}
 
 @media (max-width: 480px) {
   .date-card {
