@@ -200,6 +200,7 @@ body::before {
 
 .section--when  { background: #fde8ec; }
 .section--where { background: #daf3e8; }
+.section--dress { background: #fef3d8; }
 .section--rsvp  { background: #ece6f7; }
 
 .section-inner {
@@ -238,6 +239,12 @@ body::before {
 .section-detail--muted {
   font-size: clamp(0.9rem, 2.5vw, 1.1rem);
   color: var(--section-muted);
+}
+
+.section-detail--body {
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  max-width: 36rem;
+  line-height: 1.7;
 }
 
 .section-map-link {
