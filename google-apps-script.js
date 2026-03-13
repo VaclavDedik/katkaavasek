@@ -28,15 +28,18 @@ function doPost(e) {
 
   // Add header row on first submission
   if (sheet.getLastRow() === 0) {
-    sheet.appendRow(['Timestamp', 'Name', 'Attendance', 'Guests', 'Note']);
+    sheet.appendRow(['Timestamp', 'Name', 'Email', 'Attendance', 'Adults', 'Kids', 'Song', 'Note']);
   }
 
   const p = e.parameter;
   sheet.appendRow([
     new Date(),
     p.name       || '',
+    p.email      || '',
     p.attendance || '',
-    p.guests     || '',
+    p.adults     || '',
+    p.kids       || '',
+    p.song       || '',
     p.note       || '',
   ]);
 

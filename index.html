@@ -75,6 +75,10 @@
           <input class="form-input" type="text" id="name" name="name" autocomplete="name" required />
         </div>
         <div class="form-group">
+          <label class="form-label" for="email" data-i18n="rsvpEmail">Email</label>
+          <input class="form-input" type="email" id="email" name="email" autocomplete="email" required />
+        </div>
+        <div class="form-group">
           <span class="form-label" data-i18n="rsvpAttend">Will you attend?</span>
           <div class="radio-group">
             <label class="radio-label">
@@ -87,9 +91,19 @@
             </label>
           </div>
         </div>
-        <div class="form-group" id="guests-group" hidden>
-          <label class="form-label" for="guests" data-i18n="rsvpGuests">Number of guests (including yourself)</label>
-          <input class="form-input form-input--short" type="number" id="guests" name="guests" min="1" max="20" value="1" />
+        <div class="form-group-row" id="adults-group" hidden>
+          <div class="form-group">
+            <label class="form-label" for="adults" data-i18n="rsvpAdults">Number of adults (including yourself)</label>
+            <input class="form-input form-input--short" type="number" id="adults" name="adults" min="1" max="20" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="kids" data-i18n="rsvpKids">Number of children</label>
+            <input class="form-input form-input--short" type="number" id="kids" name="kids" min="0" max="20" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="song" data-i18n="rsvpSong">What song will get you on the dance floor?</label>
+          <input class="form-input" type="text" id="song" name="song" />
         </div>
         <div class="form-group">
           <label class="form-label" for="note" data-i18n="rsvpNote">Note (dietary needs, allergies…)</label>

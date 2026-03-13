@@ -359,6 +359,23 @@ body::before {
   width: 6rem;
 }
 
+.form-group-row {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+}
+
+.form-group-row .form-group {
+  flex: 1;
+}
+
+@media (max-width: 500px) {
+  .form-group-row {
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+}
+
 .form-textarea {
   resize: vertical;
   min-height: 5rem;
