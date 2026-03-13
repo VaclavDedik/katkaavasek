@@ -65,10 +65,11 @@ const i18n = {
   },
 };
 
-let currentLang = navigator.language.startsWith('cs') ? 'cs' : 'en';
+let currentLang = localStorage.getItem('lang') || (navigator.language.startsWith('cs') ? 'cs' : 'en');
 
 function applyLang(lang) {
   currentLang = lang;
+  localStorage.setItem('lang', lang);
   const t = i18n[lang];
 
   document.querySelectorAll('[data-i18n]').forEach(el => {
