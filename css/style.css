@@ -91,6 +91,11 @@ body::before {
 
 /* ── Hero ── */
 
+.hero-logo {
+  width: min(18rem, 70%);
+  filter: invert(1);
+}
+
 .main {
   position: relative;
   z-index: 1;
