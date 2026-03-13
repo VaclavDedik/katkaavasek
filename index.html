@@ -12,14 +12,30 @@
 </head>
 <body>
 
-  <nav class="lang-switcher" aria-label="Language">
-    <button class="lang-btn" data-lang="cs" aria-label="Česky">CS</button>
-    <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
+  <!-- Top bar -->
+  <nav class="topbar" id="topbar">
+    <a class="topbar-logo" href="#">
+      <img src="img/logo.png" alt="K&amp;V" />
+    </a>
+    <ul class="topbar-links">
+      <li><a href="#when" data-i18n="navWhen">When</a></li>
+      <li><a href="#where" data-i18n="navWhere">Where</a></li>
+      <li><a href="#dress-code" data-i18n="navDress">Dress code</a></li>
+      <li><a href="#rsvp" data-i18n="rsvpBtn">RSVP</a></li>
+    </ul>
+    <div class="topbar-right">
+      <div class="lang-switcher">
+        <button class="lang-btn" data-lang="cs" aria-label="Česky">CS</button>
+        <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
+      </div>
+    </div>
+    <button class="topbar-burger" id="topbar-burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <!-- Hero -->
   <main class="main">
-    <img class="hero-logo" src="img/logo.png" alt="K&amp;V 5.9.2026" />
     <div class="rainbow-divider" role="presentation"></div>
     <h1 class="title">Katka &amp; Vašek</h1>
     <p class="subtitle" data-i18n="subtitle">We invite you to our wedding</p>
@@ -27,7 +43,6 @@
     <div class="date-card" aria-label="Wedding date">
       <span data-i18n="date">September 5, 2026</span>
     </div>
-    <a href="#rsvp" class="hero-rsvp-btn" data-i18n="rsvpBtn">RSVP</a>
   </main>
 
   <!-- When -->

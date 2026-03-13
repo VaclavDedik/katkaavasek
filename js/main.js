@@ -2,6 +2,9 @@
 
 const i18n = {
   cs: {
+    navWhen:     'Kdy',
+    navWhere:    'Kde',
+    navDress:    'Dress code',
     subtitle:    'Zveme vás na naši svatbu',
     date:        '5. září 2026',
     whenTitle:   'Kdy',
@@ -30,6 +33,9 @@ const i18n = {
     rsvpSuccess: 'Děkujeme! Těšíme se na vás. 🎉',
   },
   en: {
+    navWhen:     'When',
+    navWhere:    'Where',
+    navDress:    'Dress code',
     subtitle:    'We invite you to our wedding',
     date:        'September 5, 2026',
     whenTitle:   'When',
@@ -79,6 +85,20 @@ function applyLang(lang) {
 
 document.querySelectorAll('.lang-btn').forEach(btn => {
   btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+});
+
+// ── Mobile burger menu ──
+
+const topbar = document.getElementById('topbar');
+const burger = document.getElementById('topbar-burger');
+
+burger.addEventListener('click', () => {
+  topbar.classList.toggle('open');
+});
+
+// Close menu when a nav link is clicked
+topbar.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => topbar.classList.remove('open'));
 });
 
 // ── Scroll reveal ──
