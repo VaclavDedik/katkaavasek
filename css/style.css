@@ -186,6 +186,7 @@ body::before {
   .topbar {
     flex-wrap: wrap;
     align-content: flex-start;
+    justify-content: center;
   }
 
   .topbar-logo {
@@ -194,6 +195,12 @@ body::before {
 
   .topbar-burger {
     display: flex;
+    position: absolute;
+    right: 1.5rem;
+    top: 0;
+    height: 7rem;
+    align-items: center;
+    margin-left: 0;
   }
 
   .topbar.open .topbar-links,
