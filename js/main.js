@@ -102,6 +102,17 @@ topbar.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => topbar.classList.remove('open'));
 });
 
+// ── Topbar background on scroll ──
+
+const hero = document.querySelector('.main');
+
+function updateTopbar() {
+  topbar.classList.toggle('scrolled', window.scrollY >= topbar.offsetHeight);
+}
+
+window.addEventListener('scroll', updateTopbar, { passive: true });
+updateTopbar();
+
 // ── Scroll reveal ──
 
 const observer = new IntersectionObserver(
