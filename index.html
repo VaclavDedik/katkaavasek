@@ -21,7 +21,7 @@
       <li><a href="#when" data-i18n="navWhen">When</a></li>
       <li><a href="#where" data-i18n="navWhere">Where</a></li>
       <li><a href="#dress-code" data-i18n="navDress">Dress code</a></li>
-      <li><a href="#rsvp" data-i18n="rsvpBtn">RSVP</a></li>
+      <li id="nav-rsvp"><a href="#rsvp" data-i18n="rsvpBtn">RSVP</a></li>
     </ul>
     <div class="topbar-right">
       <div class="lang-switcher">
@@ -86,6 +86,7 @@
       <h2 class="section-title" data-i18n="rsvpTitle">RSVP</h2>
       <div class="rainbow-divider" role="presentation"></div>
       <form class="rsvp-form" id="rsvp-form" action="https://script.google.com/macros/s/AKfycbxQDZrTPvWZbvxDOy3v5kpGPoH6K7es61tyUAWwfLgAerQKalYkymzJfg6smdP82QNp6Q/exec" method="POST">
+        <input type="hidden" id="guest-id" name="guest_id" />
         <div class="form-group">
           <label class="form-label" for="name" data-i18n="rsvpName">Name</label>
           <input class="form-input" type="text" id="name" name="name" autocomplete="name" required />

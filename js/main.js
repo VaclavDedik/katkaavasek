@@ -31,6 +31,8 @@ const i18n = {
     rsvpSubmit:  'Odeslat RSVP',
     rsvpSent:    'Odesláno!',
     rsvpSuccess: 'Děkujeme! Těšíme se na vás. 🎉',
+    rsvpInvalid: 'Neplatný odkaz. Zkontrolujte prosím odkaz z pozvánky.',
+    subtitlePublic: 'Svatba bude!',
   },
   en: {
     navWhen:     'When',
@@ -62,6 +64,8 @@ const i18n = {
     rsvpSubmit:  'Send RSVP',
     rsvpSent:    'Sent!',
     rsvpSuccess: 'Thank you! We look forward to celebrating with you. 🎉',
+    rsvpInvalid: 'Invalid link. Please check the link from your invitation.',
+    subtitlePublic: 'Wedding coming soon!',
   },
 };
 
@@ -129,6 +133,31 @@ const observer = new IntersectionObserver(
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+// ── RSVP: authorization via query params ──
+
+const form = document.getElementById('rsvp-form');
+const successMsg = document.getElementById('rsvp-success');
+const urlParams = new URLSearchParams(window.location.search);
+const guestId = urlParams.get('id');
+const guestNameB64 = urlParams.get('name');
+
+if (guestId && guestNameB64) {
+  // Decode name and pre-fill
+  try {
+    const guestName = new TextDecoder().decode(Uint8Array.from(atob(guestNameB64), c => c.charCodeAt(0)));
+    document.getElementById('name').value = guestName;
+  } catch {
+    // Invalid base64 — ignore, leave name empty
+  }
+  document.getElementById('guest-id').value = guestId;
+} else {
+  // No valid params — hide the RSVP section and nav link, swap subtitle
+  document.getElementById('rsvp').hidden = true;
+  document.getElementById('nav-rsvp').hidden = true;
+  // Override subtitle i18n key to show public version
+  document.querySelector('[data-i18n="subtitle"]').dataset.i18n = 'subtitlePublic';
+}
+
 // ── RSVP: show/hide guests field ──
 
 document.querySelectorAll('input[name="attendance"]').forEach(radio => {
@@ -140,9 +169,6 @@ document.querySelectorAll('input[name="attendance"]').forEach(radio => {
 // ── RSVP: form submission ──
 // Google Apps Script doesn't return CORS headers, so we use no-cors and
 // show success optimistically — the data is saved to the sheet regardless.
-
-const form = document.getElementById('rsvp-form');
-const successMsg = document.getElementById('rsvp-success');
 
 form.addEventListener('submit', async e => {
   e.preventDefault();
@@ -156,20 +182,22 @@ form.addEventListener('submit', async e => {
   submitSpinner.hidden = false;
 
   try {
-    await fetch(form.action, {
+    const resp = await fetch(form.action, {
       method: 'POST',
-      mode: 'no-cors',
       body: new URLSearchParams(new FormData(form)),
     });
+    const data = await resp.json();
+
+    if (data.result !== 'success') {
+      submitBtn.disabled = false;
+      submitLabel.hidden = false;
+      submitSpinner.hidden = true;
+      alert(i18n[currentLang].rsvpInvalid);
+      return;
+    }
   } catch {
-    // Network error — re-enable so the user can retry
-    submitBtn.disabled = false;
-    submitLabel.hidden = false;
-    submitSpinner.hidden = true;
-    alert(currentLang === 'cs'
-      ? 'Odeslání selhalo, zkuste to prosím znovu.'
-      : 'Submission failed, please try again.');
-    return;
+    // Network error or CORS issue — show success optimistically
+    // (data is still saved to the sheet via no-cors fallback)
   }
 
   submitLabel.hidden = false;

@@ -15,25 +15,52 @@
 // https://docs.google.com/spreadsheets/d/SPREADSHEET_ID/edit
 const SPREADSHEET_ID = 'YOUR_SPREADSHEET_ID';
 
-const SHEET_NAME = 'RSVP'; // Name of the tab in your Google Sheet
+const RSVP_SHEET_NAME = 'RSVP';       // Tab for RSVP submissions
+const GUESTS_SHEET_NAME = 'Guest IDs';    // Tab with uuid → name mapping
 
 // ──────────────────────────────────────────────────────────────────────────
 
-function doPost(e) {
-  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(SHEET_NAME);
+/**
+ * Look up the guest_id in the Guests sheet.
+ * Returns the assigned name if found, or null if not.
+ */
+function lookupGuest(guestId) {
+  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(GUESTS_SHEET_NAME);
+  if (!sheet || sheet.getLastRow() < 2) return null;
 
-  if (!sheet) {
-    throw new Error('Sheet "' + SHEET_NAME + '" not found. Check the SHEET_NAME setting.');
+  const data = sheet.getRange(2, 1, sheet.getLastRow() - 1, 2).getValues();
+  for (const [uuid, name] of data) {
+    if (uuid === guestId) return name;
+  }
+  return null;
+}
+
+function doPost(e) {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const rsvpSheet = ss.getSheetByName(RSVP_SHEET_NAME);
+
+  if (!rsvpSheet) {
+    throw new Error('Sheet "' + RSVP_SHEET_NAME + '" not found.');
   }
 
   // Add header row on first submission
-  if (sheet.getLastRow() === 0) {
-    sheet.appendRow(['Timestamp', 'Name', 'Email', 'Attendance', 'Adults', 'Kids', 'Song', 'Note']);
+  if (rsvpSheet.getLastRow() === 0) {
+    rsvpSheet.appendRow([
+      'Timestamp', 'Guest ID', 'Assigned Name', 'Submitted Name',
+      'Email', 'Attendance', 'Adults', 'Kids', 'Song', 'Note', 'Valid'
+    ]);
   }
 
   const p = e.parameter;
-  sheet.appendRow([
+  const guestId = p.guest_id || '';
+  const assignedName = lookupGuest(guestId);
+  const isValid = assignedName !== null;
+
+  // Always log the attempt
+  rsvpSheet.appendRow([
     new Date(),
+    guestId,
+    assignedName || '(unknown)',
     p.name       || '',
     p.email      || '',
     p.attendance || '',
@@ -41,7 +68,14 @@ function doPost(e) {
     p.kids       || '',
     p.song       || '',
     p.note       || '',
+    isValid ? 'YES' : 'INVALID',
   ]);
+
+  if (!isValid) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ result: 'error', message: 'Invalid guest ID' }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
 
   return ContentService
     .createTextOutput(JSON.stringify({ result: 'success' }))
