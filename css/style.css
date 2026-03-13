@@ -75,7 +75,7 @@ body::before {
   border-bottom: 1px solid transparent;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
-  transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s;
+  transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s, min-height 0.3s;
 }
 
 .topbar.scrolled {
@@ -83,6 +83,11 @@ body::before {
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom-color: rgba(255, 255, 255, 0.1);
+  min-height: 3.5rem;
+}
+
+.topbar.scrolled .topbar-logo img {
+  height: 3rem;
 }
 
 .topbar-logo {
@@ -95,6 +100,7 @@ body::before {
   height: 6rem;
   width: auto;
   filter: invert(1);
+  transition: height 0.3s;
 }
 
 .topbar-links {
@@ -191,6 +197,11 @@ body::before {
 
   .topbar-logo {
     height: 7rem;
+    transition: height 0.3s;
+  }
+
+  .topbar.scrolled .topbar-logo {
+    height: 3.5rem;
   }
 
   .topbar-burger {
@@ -201,6 +212,11 @@ body::before {
     height: 7rem;
     justify-content: center;
     margin-left: 0;
+    transition: height 0.3s;
+  }
+
+  .topbar.scrolled .topbar-burger {
+    height: 3.5rem;
   }
 
   .topbar.open .topbar-links,
