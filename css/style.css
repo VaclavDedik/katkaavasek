@@ -199,7 +199,7 @@ body::before {
     right: 1.5rem;
     top: 0;
     height: 7rem;
-    align-items: center;
+    justify-content: center;
     margin-left: 0;
   }
 
