@@ -70,7 +70,7 @@ body::before {
   align-items: center;
   gap: 1.5rem;
   padding: 0 1.5rem;
-  height: 3.5rem;
+  min-height: 3.5rem;
   background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -176,6 +176,15 @@ body::before {
     display: none;
   }
 
+  .topbar {
+    flex-wrap: wrap;
+    align-content: flex-start;
+  }
+
+  .topbar-logo {
+    height: 3.5rem;
+  }
+
   .topbar-burger {
     display: flex;
   }
@@ -186,8 +195,6 @@ body::before {
   }
 
   .topbar.open {
-    flex-wrap: wrap;
-    height: auto;
     padding-bottom: 1rem;
   }
 
