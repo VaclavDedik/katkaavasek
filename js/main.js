@@ -15,12 +15,15 @@ const i18n = {
     dressTitle:  'Dress code',
     dressText:   'Nejdůležitější pro nás je, abyste přišli a cítili se dobře. Máme rádi slavnostní atmosféru, proto budeme rádi, když zvolíte cocktail attire. Pokud si nebudete jistí, co na sebe, klidně se nám ozvěte, rádi poradíme.',
     rsvpTitle:   'RSVP',
-    rsvpBtn:     'Pošlete nám vaše RSVP',
+    rsvpBtn:     'RSVP',
     rsvpName:    'Jméno',
+    rsvpEmail:   'E-mail',
     rsvpAttend:  'Zúčastníte se?',
     rsvpYes:     'Ano, přijdu',
     rsvpNo:      'Bohužel nepřijdu',
-    rsvpGuests:  'Počet hostů (včetně vás)',
+    rsvpAdults:  'Počet dospělých (včetně vás)',
+    rsvpKids:    'Počet dětí',
+    rsvpSong:    'Na jakou písničku s námi roztančíte parket?',
     rsvpNote:    'Poznámka (dieta, alergie…)',
     rsvpSubmit:  'Odeslat RSVP',
     rsvpSent:    'Odesláno!',
@@ -40,12 +43,15 @@ const i18n = {
     dressTitle:  'Dress code',
     dressText:   'The most important thing is that you come and feel good. We love a festive atmosphere, so cocktail attire is preferred. If you\'re unsure what to wear, feel free to reach out to us — we\'re happy to help!',
     rsvpTitle:   'RSVP',
-    rsvpBtn:     'Send us your RSVP',
+    rsvpBtn:     'RSVP',
     rsvpName:    'Name',
+    rsvpEmail:   'Email',
     rsvpAttend:  'Will you attend?',
     rsvpYes:     'Yes, I will be there',
     rsvpNo:      'Unfortunately not',
-    rsvpGuests:  'Number of guests (including yourself)',
+    rsvpAdults:  'Number of adults (including yourself)',
+    rsvpKids:    'Number of children',
+    rsvpSong:    'What song will get you on the dance floor?',
     rsvpNote:    'Note (dietary needs, allergies…)',
     rsvpSubmit:  'Send RSVP',
     rsvpSent:    'Sent!',
@@ -95,7 +101,7 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 document.querySelectorAll('input[name="attendance"]').forEach(radio => {
   radio.addEventListener('change', () => {
-    document.getElementById('guests-group').hidden = radio.value !== 'yes';
+    document.getElementById('adults-group').hidden = radio.value !== 'yes';
   });
 });
 
