@@ -17,6 +17,9 @@ const i18n = {
     whereMap:    'Zobrazit na mapě',
     dressTitle:  'Dress code',
     dressText:   'Nejdůležitější pro nás je, abyste přišli a cítili se dobře. Máme rádi slavnostní atmosféru, proto budeme rádi, když zvolíte cocktail attire. Pokud si nebudete jistí, co na sebe, klidně se nám ozvěte, rádi poradíme.',
+    dressExamplesBtn: 'Ukažte mi nějaké příklady!',
+    dressYes:    'Ano, takhle!',
+    dressNo:     'Takhle raději ne',
     rsvpTitle:   'RSVP',
     rsvpBtn:     'RSVP',
     rsvpName:    'Jméno',
@@ -53,6 +56,9 @@ const i18n = {
     whereMap:    'View on map',
     dressTitle:  'Dress code',
     dressText:   'The most important thing is that you come and feel good. We love a festive atmosphere, so cocktail attire is preferred. If you\'re unsure what to wear, feel free to reach out to us — we\'re happy to help!',
+    dressExamplesBtn: 'Show me examples!',
+    dressYes:    'Yes, like this!',
+    dressNo:     'Rather not this',
     rsvpTitle:   'RSVP',
     rsvpBtn:     'RSVP',
     rsvpName:    'Name',
@@ -122,6 +128,17 @@ function updateTopbar() {
 
 window.addEventListener('scroll', updateTopbar, { passive: true });
 updateTopbar();
+
+// ── Dress code examples toggle ──
+
+const dressBtn = document.getElementById('dress-examples-btn');
+const dressExamples = document.getElementById('dress-examples');
+
+dressBtn.addEventListener('click', () => {
+  const isOpen = dressBtn.getAttribute('aria-expanded') === 'true';
+  dressBtn.setAttribute('aria-expanded', !isOpen);
+  dressExamples.hidden = isOpen;
+});
 
 // ── Scroll reveal ──
 
