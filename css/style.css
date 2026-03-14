@@ -547,6 +547,41 @@ body::before {
   }
 }
 
+/* ── RSVP image divider ── */
+
+.rsvp-image-divider {
+  position: relative;
+  z-index: 1;
+  height: 80vh;
+  overflow: hidden;
+  clip-path: inset(0);
+  -webkit-clip-path: inset(0);
+}
+
+.rsvp-image-divider-bg {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: auto;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.rsvp-image-divider--scroll .rsvp-image-divider-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: none;
+}
+
+.rsvp-image-divider-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+
 /* ── Scroll reveal ── */
 
 .reveal {

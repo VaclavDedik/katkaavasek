@@ -168,6 +168,8 @@ const guestNameB64 = urlParams.get('name');
 
 let prefilledGuestNames = [];
 
+const rsvpImg = urlParams.get('img');
+
 if (guestId && guestNameB64) {
   // Decode name(s) for later pre-fill — supports comma-separated names
   try {
@@ -177,6 +179,34 @@ if (guestId && guestNameB64) {
     // Invalid base64 — ignore, leave names empty
   }
   document.getElementById('guest-id').value = guestId;
+
+  // Show RSVP image divider if img param is provided
+  if (rsvpImg) {
+    const divider = document.getElementById('rsvp-image-divider');
+    const dividerImg = document.getElementById('rsvp-image-divider-bg');
+    dividerImg.src = 'img/rsvp/' + encodeURIComponent(rsvpImg);
+    divider.hidden = false;
+
+    function updateDividerLayout() {
+      const displayedHeight = window.innerWidth / dividerImg.naturalWidth * dividerImg.naturalHeight;
+      const viewportHeight = window.innerHeight;
+
+      if (displayedHeight >= viewportHeight) {
+        // Image is tall enough — fixed parallax, section capped at 80vh
+        divider.classList.remove('rsvp-image-divider--scroll');
+        divider.style.height = (viewportHeight * 0.8) + 'px';
+      } else {
+        // Image too short for viewport — scroll with content, section matches image
+        divider.classList.add('rsvp-image-divider--scroll');
+        divider.style.height = displayedHeight + 'px';
+      }
+    }
+
+    dividerImg.addEventListener('load', updateDividerLayout);
+    window.addEventListener('resize', () => {
+      if (dividerImg.naturalWidth) updateDividerLayout();
+    });
+  }
 } else {
   // No valid params — hide the RSVP section and nav link, swap subtitle
   document.getElementById('rsvp').hidden = true;
