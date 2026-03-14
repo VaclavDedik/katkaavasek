@@ -168,8 +168,6 @@ const guestNameB64 = urlParams.get('name');
 
 let prefilledGuestNames = [];
 
-const rsvpImg = urlParams.get('img');
-
 if (guestId && guestNameB64) {
   // Decode name(s) for later pre-fill — supports comma-separated names
   try {
@@ -180,12 +178,12 @@ if (guestId && guestNameB64) {
   }
   document.getElementById('guest-id').value = guestId;
 
-  // Show RSVP image divider if img param is provided
-  if (rsvpImg) {
+  // Show RSVP image divider — derive filename from name param (strip trailing '=')
+  const rsvpImgFile = guestNameB64.replace(/=+$/, '') + '.jpg';
+  {
     const divider = document.getElementById('rsvp-image-divider');
     const dividerImg = document.getElementById('rsvp-image-divider-bg');
-    dividerImg.src = 'img/rsvp/' + encodeURIComponent(rsvpImg);
-    divider.hidden = false;
+    dividerImg.src = 'img/rsvp/' + encodeURIComponent(rsvpImgFile);
 
     function updateDividerLayout() {
       const displayedHeight = window.innerWidth / dividerImg.naturalWidth * dividerImg.naturalHeight;
@@ -202,7 +200,10 @@ if (guestId && guestNameB64) {
       }
     }
 
-    dividerImg.addEventListener('load', updateDividerLayout);
+    dividerImg.addEventListener('load', () => {
+      divider.hidden = false;
+      updateDividerLayout();
+    });
     window.addEventListener('resize', () => {
       if (dividerImg.naturalWidth) updateDividerLayout();
     });
