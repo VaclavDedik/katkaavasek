@@ -87,14 +87,8 @@
       <div class="rainbow-divider" role="presentation"></div>
       <form class="rsvp-form" id="rsvp-form" action="https://script.google.com/macros/s/AKfycbxQDZrTPvWZbvxDOy3v5kpGPoH6K7es61tyUAWwfLgAerQKalYkymzJfg6smdP82QNp6Q/exec" method="POST">
         <input type="hidden" id="guest-id" name="guest_id" />
-        <div class="form-group">
-          <label class="form-label" for="name" data-i18n="rsvpName">Name</label>
-          <input class="form-input" type="text" id="name" name="name" autocomplete="name" required />
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="email" data-i18n="rsvpEmail">Email</label>
-          <input class="form-input" type="email" id="email" name="email" autocomplete="email" required />
-        </div>
+        <input type="hidden" id="name" name="name" />
+        <input type="hidden" id="email" name="email" />
         <div class="form-group">
           <span class="form-label" data-i18n="rsvpAttend">Will you attend?</span>
           <div class="radio-group">
@@ -118,6 +112,8 @@
             <input class="form-input form-input--short" type="number" id="kids" name="kids" min="0" max="20" />
           </div>
         </div>
+        <div id="guest-details" hidden></div>
+        <input type="hidden" id="kid-names" name="kid_names" />
         <div class="form-group">
           <label class="form-label" for="song" data-i18n="rsvpSong">What song will get you on the dance floor?</label>
           <input class="form-input" type="text" id="song" name="song" />
