@@ -34,6 +34,8 @@ const i18n = {
     rsvpSong:    'Na jakou písničku s námi roztančíte parket?',
     rsvpNote:    'Poznámka (dieta, alergie…)',
     rsvpGdpr:    'Souhlasím se zpracováním osobních údajů za účelem organizace svatby. Údaje budou po svatbě smazány.',
+    rsvpGdprError: 'Pro odeslání formuláře je nutný souhlas se zpracováním osobních údajů.',
+    rsvpAdultsError: 'Prosím, vyplňte počet dospělých.',
     rsvpSubmit:  'Odeslat RSVP',
     rsvpSent:    'Odesláno!',
     rsvpSuccess: 'Děkujeme! Těšíme se na vás. 🎉',
@@ -74,6 +76,8 @@ const i18n = {
     rsvpSong:    'What song will get you on the dance floor?',
     rsvpNote:    'Note (dietary needs, allergies…)',
     rsvpGdpr:    'I consent to the processing of my personal data for the purpose of organizing the wedding. Data will be deleted after the wedding.',
+    rsvpGdprError: 'You must consent to data processing to submit the form.',
+    rsvpAdultsError: 'Please enter the number of adults.',
     rsvpSubmit:  'Send RSVP',
     rsvpSent:    'Sent!',
     rsvpSuccess: 'Thank you! We look forward to celebrating with you. 🎉',
@@ -100,6 +104,24 @@ function applyLang(lang) {
   });
 
   document.documentElement.lang = lang;
+
+  const gdprCheckbox = document.querySelector('input[name="gdpr_consent"]');
+  if (gdprCheckbox) {
+    gdprCheckbox.setCustomValidity(gdprCheckbox.checked ? '' : t.rsvpGdprError);
+    gdprCheckbox.addEventListener('change', function () {
+      this.setCustomValidity(this.checked ? '' : i18n[currentLang].rsvpGdprError);
+    });
+  }
+
+  const adultsInput = document.getElementById('adults');
+  if (adultsInput) {
+    function validateAdults() {
+      adultsInput.setCustomValidity(adultsInput.validity.valid ? '' : i18n[currentLang].rsvpAdultsError);
+    }
+    validateAdults();
+    adultsInput.addEventListener('input', validateAdults);
+    adultsInput.addEventListener('invalid', validateAdults);
+  }
 }
 
 document.querySelectorAll('.lang-btn').forEach(btn => {
