@@ -519,6 +519,23 @@ body::before {
   }
 }
 
+.guest-details-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.guest-details-section + .guest-details-section {
+  margin-top: 0.5rem;
+}
+
+.guest-section-header {
+  font-size: 0.8rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid #d4c6e8;
+}
+
 .form-textarea {
   resize: vertical;
   min-height: 5rem;

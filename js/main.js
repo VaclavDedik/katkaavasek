@@ -26,6 +26,8 @@ const i18n = {
     rsvpNo:      'Bohužel nepřijdu',
     rsvpAdults:  'Počet dospělých (včetně vás)',
     rsvpKids:    'Počet dětí',
+    rsvpAdultsList: 'Dospělí',
+    rsvpChildrenList: 'Děti',
     rsvpSong:    'Na jakou písničku s námi roztančíte parket?',
     rsvpNote:    'Poznámka (dieta, alergie…)',
     rsvpSubmit:  'Odeslat RSVP',
@@ -59,6 +61,8 @@ const i18n = {
     rsvpNo:      'Unfortunately not',
     rsvpAdults:  'Number of adults (including yourself)',
     rsvpKids:    'Number of children',
+    rsvpAdultsList: 'Adults',
+    rsvpChildrenList: 'Children',
     rsvpSong:    'What song will get you on the dance floor?',
     rsvpNote:    'Note (dietary needs, allergies…)',
     rsvpSubmit:  'Send RSVP',
@@ -141,11 +145,12 @@ const urlParams = new URLSearchParams(window.location.search);
 const guestId = urlParams.get('id');
 const guestNameB64 = urlParams.get('name');
 
+let prefilledGuestName = '';
+
 if (guestId && guestNameB64) {
-  // Decode name and pre-fill
+  // Decode name for later pre-fill in dynamic guest fields
   try {
-    const guestName = new TextDecoder().decode(Uint8Array.from(atob(guestNameB64), c => c.charCodeAt(0)));
-    document.getElementById('name').value = guestName;
+    prefilledGuestName = new TextDecoder().decode(Uint8Array.from(atob(guestNameB64), c => c.charCodeAt(0)));
   } catch {
     // Invalid base64 — ignore, leave name empty
   }
@@ -162,9 +167,131 @@ if (guestId && guestNameB64) {
 
 document.querySelectorAll('input[name="attendance"]').forEach(radio => {
   radio.addEventListener('change', () => {
-    document.getElementById('adults-group').hidden = radio.value !== 'yes';
+    const isYes = radio.value === 'yes';
+    document.getElementById('adults-group').hidden = !isYes;
+    if (!isYes) {
+      document.getElementById('guest-details').hidden = true;
+      document.getElementById('guest-details').innerHTML = '';
+    }
   });
 });
+
+// ── RSVP: dynamic guest name/email fields ──
+
+function updateGuestDetails() {
+  const container = document.getElementById('guest-details');
+  const adults = parseInt(document.getElementById('adults').value) || 0;
+  const kids = parseInt(document.getElementById('kids').value) || 0;
+  const t = i18n[currentLang];
+
+  // Preserve existing values
+  const prevAdultNames = [...form.querySelectorAll('.adult-name-input')].map(i => i.value);
+  const prevAdultEmails = [...form.querySelectorAll('.adult-email-input')].map(i => i.value);
+  const prevKidNames = [...form.querySelectorAll('.kid-name-input')].map(i => i.value);
+
+  container.innerHTML = '';
+
+  const needsAdults = adults >= 1;
+  const needsKids = kids > 0;
+
+  if (!needsAdults && !needsKids) {
+    container.hidden = true;
+    return;
+  }
+
+  container.hidden = false;
+
+  if (needsAdults) {
+    const section = document.createElement('div');
+    section.className = 'guest-details-section';
+
+    const header = document.createElement('span');
+    header.className = 'form-label guest-section-header';
+    header.dataset.i18n = 'rsvpAdultsList';
+    header.textContent = t.rsvpAdultsList;
+    section.appendChild(header);
+
+    for (let i = 1; i <= adults; i++) {
+      const row = document.createElement('div');
+      row.className = 'form-group-row';
+
+      const nameGroup = document.createElement('div');
+      nameGroup.className = 'form-group';
+      const nameLabel = document.createElement('label');
+      nameLabel.className = 'form-label';
+      nameLabel.dataset.i18n = 'rsvpName';
+      nameLabel.textContent = t.rsvpName;
+      const nameInput = document.createElement('input');
+      nameInput.className = 'form-input adult-name-input';
+      nameInput.type = 'text';
+      nameInput.required = true;
+      nameInput.autocomplete = 'off';
+      // Pre-fill first adult with guest name from invitation
+      if (prevAdultNames[i - 1] !== undefined) {
+        nameInput.value = prevAdultNames[i - 1];
+      } else if (i === 1 && prefilledGuestName) {
+        nameInput.value = prefilledGuestName;
+      }
+      nameGroup.appendChild(nameLabel);
+      nameGroup.appendChild(nameInput);
+
+      const emailGroup = document.createElement('div');
+      emailGroup.className = 'form-group';
+      const emailLabel = document.createElement('label');
+      emailLabel.className = 'form-label';
+      emailLabel.dataset.i18n = 'rsvpEmail';
+      emailLabel.textContent = t.rsvpEmail;
+      const emailInput = document.createElement('input');
+      emailInput.className = 'form-input adult-email-input';
+      emailInput.type = 'email';
+      emailInput.autocomplete = 'off';
+      if (prevAdultEmails[i - 1]) emailInput.value = prevAdultEmails[i - 1];
+      emailGroup.appendChild(emailLabel);
+      emailGroup.appendChild(emailInput);
+
+      row.appendChild(nameGroup);
+      row.appendChild(emailGroup);
+      section.appendChild(row);
+    }
+
+    container.appendChild(section);
+  }
+
+  if (needsKids) {
+    const section = document.createElement('div');
+    section.className = 'guest-details-section';
+
+    const header = document.createElement('span');
+    header.className = 'form-label guest-section-header';
+    header.dataset.i18n = 'rsvpChildrenList';
+    header.textContent = t.rsvpChildrenList;
+    section.appendChild(header);
+
+    for (let i = 1; i <= kids; i++) {
+      const nameGroup = document.createElement('div');
+      nameGroup.className = 'form-group';
+      const nameLabel = document.createElement('label');
+      nameLabel.className = 'form-label';
+      nameLabel.dataset.i18n = 'rsvpName';
+      nameLabel.textContent = t.rsvpName;
+      const nameInput = document.createElement('input');
+      nameInput.className = 'form-input kid-name-input';
+      nameInput.type = 'text';
+      nameInput.required = true;
+      nameInput.autocomplete = 'off';
+      if (prevKidNames[i - 1]) nameInput.value = prevKidNames[i - 1];
+      nameGroup.appendChild(nameLabel);
+      nameGroup.appendChild(nameInput);
+
+      section.appendChild(nameGroup);
+    }
+
+    container.appendChild(section);
+  }
+}
+
+document.getElementById('adults').addEventListener('input', updateGuestDetails);
+document.getElementById('kids').addEventListener('input', updateGuestDetails);
 
 // ── RSVP: form submission ──
 // Google Apps Script doesn't return CORS headers, so we use no-cors and
@@ -180,6 +307,14 @@ form.addEventListener('submit', async e => {
   submitBtn.disabled = true;
   submitLabel.hidden = true;
   submitSpinner.hidden = false;
+
+  // Serialize guest data into hidden fields
+  document.getElementById('name').value =
+    [...form.querySelectorAll('.adult-name-input')].map(i => i.value.trim()).filter(Boolean).join(', ');
+  document.getElementById('email').value =
+    [...form.querySelectorAll('.adult-email-input')].map(i => i.value.trim()).filter(Boolean).join(', ');
+  document.getElementById('kid-names').value =
+    [...form.querySelectorAll('.kid-name-input')].map(i => i.value.trim()).filter(Boolean).join(', ');
 
   try {
     const resp = await fetch(form.action, {

@@ -46,8 +46,9 @@ function doPost(e) {
   // Add header row on first submission
   if (rsvpSheet.getLastRow() === 0) {
     rsvpSheet.appendRow([
-      'Timestamp', 'Guest ID', 'Assigned Name', 'Submitted Name',
-      'Email', 'Attendance', 'Adults', 'Kids', 'Song', 'Note', 'Valid'
+      'Timestamp', 'Guest ID', 'Assigned Names', 'Submitted Names',
+      'Email', 'Attendance', 'Adults', 'Kids', 'Kids Names',
+      'Song', 'Note', 'Valid'
     ]);
   }
 
@@ -61,13 +62,14 @@ function doPost(e) {
     new Date(),
     guestId,
     assignedName || '(unknown)',
-    p.name       || '',
-    p.email      || '',
-    p.attendance || '',
-    p.adults     || '',
-    p.kids       || '',
-    p.song       || '',
-    p.note       || '',
+    p.name         || '',
+    p.email        || '',
+    p.attendance   || '',
+    p.adults       || '',
+    p.kids         || '',
+    p.kid_names    || '',
+    p.song         || '',
+    p.note         || '',
     isValid ? 'YES' : 'INVALID',
   ]);
 
