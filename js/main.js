@@ -118,6 +118,7 @@ function applyLang(lang) {
   const adultsInput = document.getElementById('adults');
   if (adultsInput) {
     function validateAdults() {
+      adultsInput.setCustomValidity('');
       adultsInput.setCustomValidity(adultsInput.validity.valid ? '' : i18n[currentLang].rsvpAdultsError);
     }
     validateAdults();
@@ -128,6 +129,7 @@ function applyLang(lang) {
   const kidsInput = document.getElementById('kids');
   if (kidsInput) {
     function validateKids() {
+      kidsInput.setCustomValidity('');
       kidsInput.setCustomValidity(kidsInput.validity.valid ? '' : i18n[currentLang].rsvpKidsError);
     }
     validateKids();
