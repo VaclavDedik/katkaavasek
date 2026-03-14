@@ -36,6 +36,7 @@ const i18n = {
     rsvpGdpr:    'Souhlasím se zpracováním osobních údajů za účelem organizace svatby. Údaje budou po svatbě smazány.',
     rsvpGdprError: 'Pro odeslání formuláře je nutný souhlas se zpracováním osobních údajů.',
     rsvpAdultsError: 'Prosím, vyplňte počet dospělých.',
+    rsvpKidsError: 'Prosím, vyplňte počet dětí.',
     rsvpSubmit:  'Odeslat RSVP',
     rsvpSent:    'Odesláno!',
     rsvpSuccess: 'Děkujeme! Těšíme se na vás. 🎉',
@@ -78,6 +79,7 @@ const i18n = {
     rsvpGdpr:    'I consent to the processing of my personal data for the purpose of organizing the wedding. Data will be deleted after the wedding.',
     rsvpGdprError: 'You must consent to data processing to submit the form.',
     rsvpAdultsError: 'Please enter the number of adults.',
+    rsvpKidsError: 'Please enter the number of children.',
     rsvpSubmit:  'Send RSVP',
     rsvpSent:    'Sent!',
     rsvpSuccess: 'Thank you! We look forward to celebrating with you. 🎉',
@@ -121,6 +123,16 @@ function applyLang(lang) {
     validateAdults();
     adultsInput.addEventListener('input', validateAdults);
     adultsInput.addEventListener('invalid', validateAdults);
+  }
+
+  const kidsInput = document.getElementById('kids');
+  if (kidsInput) {
+    function validateKids() {
+      kidsInput.setCustomValidity(kidsInput.validity.valid ? '' : i18n[currentLang].rsvpKidsError);
+    }
+    validateKids();
+    kidsInput.addEventListener('input', validateKids);
+    kidsInput.addEventListener('invalid', validateKids);
   }
 }
 
@@ -245,6 +257,7 @@ document.querySelectorAll('input[name="attendance"]').forEach(radio => {
     const isYes = radio.value === 'yes';
     document.getElementById('adults-group').hidden = !isYes;
     document.getElementById('adults').required = isYes;
+    document.getElementById('kids').required = isYes;
     document.getElementById('song-group').hidden = !isYes;
     if (!isYes) {
       document.getElementById('guest-details').hidden = true;
