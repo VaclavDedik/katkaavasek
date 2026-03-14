@@ -33,6 +33,7 @@ const i18n = {
     rsvpSubmit:  'Odeslat RSVP',
     rsvpSent:    'Odesláno!',
     rsvpSuccess: 'Děkujeme! Těšíme se na vás. 🎉',
+    rsvpDecline: 'To je škoda! Snad se uvidíme jindy. 💛',
     rsvpInvalid: 'Neplatný odkaz. Zkontrolujte prosím odkaz z pozvánky.',
     subtitlePublic: 'Svatba bude!',
   },
@@ -68,6 +69,7 @@ const i18n = {
     rsvpSubmit:  'Send RSVP',
     rsvpSent:    'Sent!',
     rsvpSuccess: 'Thank you! We look forward to celebrating with you. 🎉',
+    rsvpDecline: 'Sorry to hear that! Hope to see you another time. 💛',
     rsvpInvalid: 'Invalid link. Please check the link from your invitation.',
     subtitlePublic: 'Wedding coming soon!',
   },
@@ -169,6 +171,7 @@ document.querySelectorAll('input[name="attendance"]').forEach(radio => {
   radio.addEventListener('change', () => {
     const isYes = radio.value === 'yes';
     document.getElementById('adults-group').hidden = !isYes;
+    document.getElementById('adults').required = isYes;
     if (!isYes) {
       document.getElementById('guest-details').hidden = true;
       document.getElementById('guest-details').innerHTML = '';
@@ -335,9 +338,11 @@ form.addEventListener('submit', async e => {
     // (data is still saved to the sheet via no-cors fallback)
   }
 
+  const isAttending = form.querySelector('input[name="attendance"]:checked')?.value === 'yes';
   submitLabel.hidden = false;
   submitSpinner.hidden = true;
   submitLabel.textContent = i18n[currentLang].rsvpSent;
+  successMsg.textContent = i18n[currentLang][isAttending ? 'rsvpSuccess' : 'rsvpDecline'];
   successMsg.hidden = false;
 });
 
