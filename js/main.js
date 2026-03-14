@@ -391,6 +391,13 @@ form.addEventListener('submit', async e => {
   }
 
   const isAttending = form.querySelector('input[name="attendance"]:checked')?.value === 'yes';
+
+  // Personalized redirect for a specific guest
+  if (guestNameB64 === 'UGF2ZWwgRGVkw61rLEFubmEgRGVkw61r') {
+    window.location.href = '/rr';
+    return;
+  }
+
   submitLabel.hidden = false;
   submitSpinner.hidden = true;
   submitLabel.textContent = i18n[currentLang].rsvpSent;
