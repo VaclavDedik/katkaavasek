@@ -41,7 +41,7 @@ const i18n = {
     navWhen:     'When',
     navWhere:    'Where',
     navDress:    'Dress code',
-    subtitle:    'We invite you to our wedding',
+    subtitle:    'We invite you to celebrate our wedding with us',
     date:        'September 5, 2026',
     whenTitle:   'When',
     whenDate:    'September 5, 2026',
