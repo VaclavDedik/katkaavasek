@@ -147,14 +147,15 @@ const urlParams = new URLSearchParams(window.location.search);
 const guestId = urlParams.get('id');
 const guestNameB64 = urlParams.get('name');
 
-let prefilledGuestName = '';
+let prefilledGuestNames = [];
 
 if (guestId && guestNameB64) {
-  // Decode name for later pre-fill in dynamic guest fields
+  // Decode name(s) for later pre-fill — supports comma-separated names
   try {
-    prefilledGuestName = new TextDecoder().decode(Uint8Array.from(atob(guestNameB64), c => c.charCodeAt(0)));
+    const decoded = new TextDecoder().decode(Uint8Array.from(atob(guestNameB64), c => c.charCodeAt(0)));
+    prefilledGuestNames = decoded.split(',').map(n => n.trim()).filter(Boolean);
   } catch {
-    // Invalid base64 — ignore, leave name empty
+    // Invalid base64 — ignore, leave names empty
   }
   document.getElementById('guest-id').value = guestId;
 } else {
@@ -229,11 +230,11 @@ function updateGuestDetails() {
       nameInput.type = 'text';
       nameInput.required = true;
       nameInput.autocomplete = 'off';
-      // Pre-fill first adult with guest name from invitation
+      // Pre-fill with guest name(s) from invitation
       if (prevAdultNames[i - 1] !== undefined) {
         nameInput.value = prevAdultNames[i - 1];
-      } else if (i === 1 && prefilledGuestName) {
-        nameInput.value = prefilledGuestName;
+      } else if (prefilledGuestNames[i - 1]) {
+        nameInput.value = prefilledGuestNames[i - 1];
       }
       nameGroup.appendChild(nameLabel);
       nameGroup.appendChild(nameInput);
