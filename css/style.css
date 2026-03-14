@@ -440,6 +440,113 @@ body::before {
 }
 .section-map-link:hover { opacity: 0.7; }
 
+/* ── Dress code examples ── */
+
+.dress-examples-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 1px dashed var(--rainbow-2);
+  color: var(--section-muted);
+  padding: 0.6rem 1.5rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.dress-examples-btn:hover {
+  background: var(--rainbow-2);
+  color: #fff;
+  border-color: var(--rainbow-2);
+}
+
+.dress-examples-chevron {
+  display: inline-block;
+  font-size: 0.7rem;
+  transition: transform 0.3s;
+}
+
+.dress-examples-btn[aria-expanded="true"] .dress-examples-chevron {
+  transform: rotate(180deg);
+}
+
+.dress-examples {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 0 2rem 4rem;
+  background: #fef3d8;
+  overflow: hidden;
+  animation: dress-slide-down 0.4s ease;
+}
+
+.dress-examples .dress-example {
+  max-width: 36rem;
+  width: 100%;
+}
+
+@keyframes dress-slide-down {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-1rem);
+  }
+  to {
+    opacity: 1;
+    max-height: 50rem;
+    transform: translateY(0);
+  }
+}
+
+.dress-example {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dress-example img {
+  width: 100%;
+  border-radius: 0.75rem;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.dress-example img:hover {
+  transform: scale(1.03);
+}
+
+.dress-example-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.04em;
+}
+
+.dress-example-label--right {
+  color: #4caf50;
+}
+
+.dress-example-label--wrong {
+  color: #e57373;
+}
+
+@media (max-width: 700px) {
+  .dress-examples {
+    gap: 1.5rem;
+    padding: 0 1.5rem 3rem;
+  }
+}
+
 /* ── Scroll reveal ── */
 
 .reveal {

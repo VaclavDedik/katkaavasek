@@ -76,8 +76,24 @@
       <h2 class="section-title" data-i18n="dressTitle">Dress code</h2>
       <div class="rainbow-divider" role="presentation"></div>
       <p class="section-detail section-detail--body" data-i18n="dressText">The most important thing is that you come. That said, we love a festive atmosphere — formal attire is preferred. Please avoid white dresses.</p>
+      <button class="dress-examples-btn" id="dress-examples-btn" aria-expanded="false" aria-controls="dress-examples">
+        <span data-i18n="dressExamplesBtn">Show me examples!</span>
+        <span class="dress-examples-chevron" aria-hidden="true">&#9662;</span>
+      </button>
     </div>
   </section>
+
+  <!-- Dress code examples (expandable) -->
+  <div class="dress-examples" id="dress-examples" hidden>
+    <div class="dress-example dress-example--right">
+      <img src="img/example-dress-code-right.png" alt="" />
+      <span class="dress-example-label dress-example-label--right" data-i18n="dressYes">Yes, like this!</span>
+    </div>
+    <div class="dress-example dress-example--wrong">
+      <img src="img/example-dress-code-wrong.png" alt="" />
+      <span class="dress-example-label dress-example-label--wrong" data-i18n="dressNo">Rather not this</span>
+    </div>
+  </div>
 
   <!-- RSVP -->
   <!-- To activate the form: paste the Apps Script web app URL (from google-apps-script.js setup) as the action below -->
