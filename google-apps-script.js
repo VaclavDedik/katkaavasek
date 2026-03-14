@@ -61,7 +61,7 @@ function doPost(e) {
   rsvpSheet.appendRow([
     new Date(),
     guestId,
-    assignedName || '(unknown)',
+    assignedName || (p.user_agent || '(unknown)'),
     p.name         || '',
     p.email        || '',
     p.attendance   || '',

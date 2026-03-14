@@ -423,6 +423,7 @@ form.addEventListener('submit', async e => {
   submitSpinner.hidden = false;
 
   // Serialize guest data into hidden fields
+  document.getElementById('user-agent').value = navigator.userAgent;
   document.getElementById('name').value =
     [...form.querySelectorAll('.adult-name-input')].map(i => i.value.trim()).filter(Boolean).join(', ');
   document.getElementById('email').value =
