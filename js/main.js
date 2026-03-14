@@ -263,7 +263,11 @@ document.querySelectorAll('input[name="attendance"]').forEach(radio => {
     document.getElementById('adults').required = isYes;
     document.getElementById('kids').required = isYes;
     document.getElementById('song-group').hidden = !isYes;
+    document.getElementById('gdpr-group').hidden = !isYes;
+    const gdprBox = document.querySelector('input[name="gdpr_consent"]');
+    gdprBox.required = isYes;
     if (!isYes) {
+      gdprBox.setCustomValidity('');
       document.getElementById('guest-details').hidden = true;
       document.getElementById('guest-details').innerHTML = '';
     }
