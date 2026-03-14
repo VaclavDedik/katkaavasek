@@ -192,6 +192,7 @@ document.querySelectorAll('input[name="attendance"]').forEach(radio => {
     const isYes = radio.value === 'yes';
     document.getElementById('adults-group').hidden = !isYes;
     document.getElementById('adults').required = isYes;
+    document.getElementById('song-group').hidden = !isYes;
     if (!isYes) {
       document.getElementById('guest-details').hidden = true;
       document.getElementById('guest-details').innerHTML = '';
