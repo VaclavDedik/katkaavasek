@@ -44,6 +44,12 @@ const i18n = {
     rsvpDecline: 'To je škoda! Snad se uvidíme jindy. 💛',
     rsvpInvalid: 'Neplatný odkaz. Zkontrolujte prosím odkaz z pozvánky.',
     subtitlePublic: 'Svatba bude!',
+    summaryTitle: 'Vaše RSVP',
+    summaryAttendance: 'Účast',
+    summaryAttendYes: 'Přijdeme!',
+    summaryAttendNo: 'Nepřijdeme',
+    summaryGuests: 'Hosté',
+    summaryChildren: 'Děti',
   },
   en: {
     navWhen:     'When',
@@ -88,6 +94,12 @@ const i18n = {
     rsvpDecline: 'Sorry to hear that! Hope to see you another time. 💛',
     rsvpInvalid: 'Invalid link. Please check the link from your invitation.',
     subtitlePublic: 'Wedding coming soon!',
+    summaryTitle: 'Your RSVP',
+    summaryAttendance: 'Attendance',
+    summaryAttendYes: 'We\'ll be there!',
+    summaryAttendNo: 'Won\'t make it',
+    summaryGuests: 'Guests',
+    summaryChildren: 'Children',
   },
 };
 
@@ -199,7 +211,6 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 // ── RSVP: authorization via query params ──
 
 const form = document.getElementById('rsvp-form');
-const successMsg = document.getElementById('rsvp-success');
 const urlParams = new URLSearchParams(window.location.search);
 const guestId = urlParams.get('id');
 const guestNameB64 = urlParams.get('name');
@@ -458,11 +469,50 @@ form.addEventListener('submit', async e => {
     return;
   }
 
-  submitLabel.hidden = false;
-  submitSpinner.hidden = true;
-  submitLabel.textContent = i18n[currentLang].rsvpSent;
-  successMsg.textContent = i18n[currentLang][isAttending ? 'rsvpSuccess' : 'rsvpDecline'];
-  successMsg.hidden = false;
+  // Collect summary data before hiding the form
+  const t = i18n[currentLang];
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const summaryData = { isAttending };
+
+  if (isAttending) {
+    summaryData.adultNames = [...form.querySelectorAll('.adult-name-input')].map(i => i.value.trim()).filter(Boolean);
+    summaryData.kidNames = [...form.querySelectorAll('.kid-name-input')].map(i => i.value.trim()).filter(Boolean);
+  }
+
+  // Hide form, show summary
+  form.hidden = true;
+  const summary = document.getElementById('rsvp-summary');
+  const summaryIcon = document.getElementById('rsvp-summary-icon');
+  const summaryMessage = document.getElementById('rsvp-summary-message');
+  const summaryCard = document.getElementById('rsvp-summary-card');
+
+  summaryIcon.textContent = isAttending ? '🎉' : '💛';
+  summaryMessage.textContent = t[isAttending ? 'rsvpSuccess' : 'rsvpDecline'];
+
+  // Build summary card rows
+  let cardHTML = `<h3 class="rsvp-summary-card-title">${t.summaryTitle}</h3>`;
+  cardHTML += `<div class="rsvp-summary-row">
+    <span class="rsvp-summary-label">${t.summaryAttendance}</span>
+    <span class="rsvp-summary-value ${isAttending ? 'rsvp-summary-value--yes' : 'rsvp-summary-value--no'}">${t[isAttending ? 'summaryAttendYes' : 'summaryAttendNo']}</span>
+  </div>`;
+
+  if (isAttending) {
+    if (summaryData.adultNames.length) {
+      cardHTML += `<div class="rsvp-summary-row">
+        <span class="rsvp-summary-label">${t.summaryGuests} (${summaryData.adultNames.length})</span>
+        <span class="rsvp-summary-value">${summaryData.adultNames.map(esc).join(', ')}</span>
+      </div>`;
+    }
+    if (summaryData.kidNames.length) {
+      cardHTML += `<div class="rsvp-summary-row">
+        <span class="rsvp-summary-label">${t.summaryChildren} (${summaryData.kidNames.length})</span>
+        <span class="rsvp-summary-value">${summaryData.kidNames.map(esc).join(', ')}</span>
+      </div>`;
+    }
+  }
+
+  summaryCard.innerHTML = cardHTML;
+  summary.hidden = false;
 });
 
 applyLang(currentLang);
