@@ -37,6 +37,7 @@ const i18n = {
     rsvpGdprError: 'Pro odeslání formuláře je nutný souhlas se zpracováním osobních údajů.',
     rsvpAdultsError: 'Prosím, vyplňte počet dospělých.',
     rsvpKidsError: 'Prosím, vyplňte počet dětí.',
+    rsvpNameError: 'Prosím, vyplňte jméno.',
     rsvpSubmit:  'Odeslat RSVP',
     rsvpSent:    'Odesláno!',
     rsvpSuccess: 'Děkujeme! Těšíme se na vás. 🎉',
@@ -80,6 +81,7 @@ const i18n = {
     rsvpGdprError: 'You must consent to data processing to submit the form.',
     rsvpAdultsError: 'Please enter the number of adults.',
     rsvpKidsError: 'Please enter the number of children.',
+    rsvpNameError: 'Please enter a name.',
     rsvpSubmit:  'Send RSVP',
     rsvpSent:    'Sent!',
     rsvpSuccess: 'Thank you! We look forward to celebrating with you. 🎉',
@@ -324,6 +326,14 @@ function updateGuestDetails() {
       } else if (prefilledGuestNames[i - 1]) {
         nameInput.value = prefilledGuestNames[i - 1];
       }
+      nameInput.addEventListener('input', function () {
+        this.setCustomValidity('');
+        this.setCustomValidity(this.validity.valid ? '' : i18n[currentLang].rsvpNameError);
+      });
+      nameInput.addEventListener('invalid', function () {
+        this.setCustomValidity('');
+        this.setCustomValidity(this.validity.valid ? '' : i18n[currentLang].rsvpNameError);
+      });
       nameGroup.appendChild(nameLabel);
       nameGroup.appendChild(nameInput);
 
@@ -372,6 +382,14 @@ function updateGuestDetails() {
       nameInput.required = true;
       nameInput.autocomplete = 'off';
       if (prevKidNames[i - 1]) nameInput.value = prevKidNames[i - 1];
+      nameInput.addEventListener('input', function () {
+        this.setCustomValidity('');
+        this.setCustomValidity(this.validity.valid ? '' : i18n[currentLang].rsvpNameError);
+      });
+      nameInput.addEventListener('invalid', function () {
+        this.setCustomValidity('');
+        this.setCustomValidity(this.validity.valid ? '' : i18n[currentLang].rsvpNameError);
+      });
       nameGroup.appendChild(nameLabel);
       nameGroup.appendChild(nameInput);
 
