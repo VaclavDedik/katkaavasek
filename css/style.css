@@ -344,6 +344,7 @@ body::before {
 .section--when  { background: #fde8ec; }
 .section--where { background: #daf3e8; }
 .section--dress { background: #fef3d8; }
+.section--gifts { background: #e4f0fb; }
 .section--rsvp  { background: #ece6f7; }
 
 /* ── Side-by-side layout for sections with images ── */
